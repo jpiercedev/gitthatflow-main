@@ -9,7 +9,12 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 export interface Project {
   id: string
   repo_url: string
-  parsed_data: any
+  parsed_data: {
+    routes: RouteData[]
+    framework: string
+    totalFiles: number
+    routeFiles: number
+  } | null
   created_at: string
 }
 

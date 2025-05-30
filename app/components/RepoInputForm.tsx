@@ -12,7 +12,7 @@ export default function RepoInputForm({ onSubmit, isLoading }: RepoInputFormProp
   const [error, setError] = useState('')
 
   const validateGitHubUrl = (url: string): boolean => {
-    const githubPattern = /^https:\/\/github\.com\/[\w\-\.]+\/[\w\-\.]+\/?$/
+    const githubPattern = /^https:\/\/github\.com\/[\w\-\.]+\/[\w\-\.]+(?:\.git)?\/?$/
     return githubPattern.test(url)
   }
 
