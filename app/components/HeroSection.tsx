@@ -21,12 +21,13 @@ export default function HeroSection() {
         </h1>
 
         <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
-          Instantly visualize your React app's routing structure. Paste any GitHub repository URL and get beautiful Mermaid diagrams of your routes.
+          Visualize React app routing structures from GitHub repositories or discover website navigation flows.
+          Get beautiful, interactive diagrams with drag, zoom, and pan controls powered by React Flow.
         </p>
 
         <div className="mt-6">
           <p className="text-sm text-gray-500">
-            👇 Try it with any public GitHub repository
+            👇 Choose GitHub repository analysis or website flow mapping
           </p>
         </div>
       </div>

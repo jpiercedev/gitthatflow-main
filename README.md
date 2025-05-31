@@ -1,15 +1,27 @@
 # GitThatFlow
 
-GitThatFlow is a powerful tool that analyzes GitHub repositories and visualizes their routing structure using beautiful Mermaid diagrams. It automatically detects and parses routing patterns from popular React frameworks including Next.js (App Router & Pages Router) and React Router.
+GitThatFlow is a powerful tool that analyzes GitHub repositories and visualizes their routing structure using beautiful Mermaid diagrams, plus discovers website navigation flows through intelligent crawling. It automatically detects and parses routing patterns from popular React frameworks and maps user journeys on any website.
 
 ## Features
 
+### GitHub Repository Analysis
 - 🔍 **Automatic Framework Detection**: Intelligently detects Next.js App Router, Next.js Pages Router, and React Router patterns
-- 📊 **Interactive Flow Visualization**: Beautiful, customizable diagrams powered by Mermaid.js
-- ⚡ **Real-time Analysis**: Analyzes repositories directly from GitHub URLs
+- 🔧 **AST Parsing**: Uses Babel AST parsing for accurate component and route extraction
+
+### Website Flow Analysis (NEW!)
+- 🌐 **Website Crawling**: Automatically discovers navigation paths and user journeys on any website
+- 🚀 **Smart Limits**: Analyzes up to 30 pages with configurable depth for optimal performance
+- 🤖 **Respectful Crawling**: Honors robots.txt and implements rate limiting
+
+### Unified Visualization
+- 🎯 **Interactive React Flow**: Beautiful, draggable flow diagrams with zoom and pan controls for both analysis types
+- 📊 **Consistent Experience**: Same intuitive interface whether analyzing code or websites
+- 🎨 **Customizable Layouts**: Auto-layout algorithms with manual repositioning capabilities
+
+### Shared Features
+- ⚡ **Real-time Analysis**: Analyzes repositories and websites directly from URLs
 - 💾 **Smart Caching**: Results are cached in Supabase for faster subsequent loads
 - 🎨 **Modern UI**: Clean, responsive interface built with Tailwind CSS
-- 🔧 **AST Parsing**: Uses Babel AST parsing for accurate component and route extraction
 
 ## Supported Frameworks
 
@@ -55,9 +67,10 @@ GITHUB_TOKEN=your_github_personal_access_token
 
 4. Set up Supabase database:
 
-The application requires a `projects` table in your Supabase database. Run this SQL in your Supabase SQL editor:
+The application requires database tables for both GitHub repository analysis and website flow analysis. Run the SQL from `database-setup.sql` in your Supabase SQL editor, or copy this:
 
 ```sql
+-- GitHub repository analysis table
 CREATE TABLE projects (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   repo_url TEXT NOT NULL UNIQUE,
@@ -65,8 +78,17 @@ CREATE TABLE projects (
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
--- Create index for faster lookups
+-- Website flow analysis table
+CREATE TABLE website_projects (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  website_url TEXT NOT NULL UNIQUE,
+  flow_data JSONB,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Create indexes for faster lookups
 CREATE INDEX idx_projects_repo_url ON projects(repo_url);
+CREATE INDEX idx_website_projects_url ON website_projects(website_url);
 ```
 
 5. Run the development server:
@@ -112,10 +134,11 @@ Open [http://localhost:3000](http://localhost:3000) to see the application.
 
 ## Architecture
 
-- **Frontend**: Next.js 15 with React 19, Tailwind CSS, Mermaid.js
-- **Backend**: Next.js API routes with GitHub API integration
+- **Frontend**: Next.js 15 with React 19, Tailwind CSS, React Flow for unified visualization
+- **Backend**: Next.js API routes with GitHub API integration and web crawling
 - **Database**: Supabase (PostgreSQL) for caching analysis results
-- **Parsing**: Babel AST parser for accurate code analysis
+- **Analysis**: Babel AST parser for code analysis, Cheerio for website crawling
+- **Visualization**: React Flow for interactive, draggable flow diagrams
 
 ## Contributing
 

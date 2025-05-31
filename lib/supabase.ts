@@ -24,3 +24,36 @@ export interface RouteData {
   file_path?: string
   children?: RouteData[]
 }
+
+// Website Flow Analysis Types
+export interface WebsitePageData {
+  id: string
+  url: string
+  title: string
+  path: string
+  links: string[]
+  isEntryPoint?: boolean
+  depth: number
+}
+
+export interface WebsiteFlowData {
+  pages: WebsitePageData[]
+  connections: Array<{
+    source: string
+    target: string
+    type: 'navigation' | 'form' | 'button' | 'link'
+  }>
+  metadata: {
+    baseUrl: string
+    totalPages: number
+    maxDepth: number
+    crawlTime: number
+  }
+}
+
+export interface WebsiteProject {
+  id: string
+  website_url: string
+  flow_data: WebsiteFlowData | null
+  created_at: string
+}

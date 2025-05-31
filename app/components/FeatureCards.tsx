@@ -5,6 +5,13 @@ import { NeonGradientCard } from "./magicui/neon-gradient-card";
 
 const features = [
   {
+    title: "Website Flow Analysis",
+    description: "Discover navigation paths and user journeys by crawling any website. Interactive React Flow visualization with up to 30 pages.",
+    icon: "🌐",
+    type: "neon" as const,
+    gradient: true,
+  },
+  {
     title: "Next.js App Router",
     description: "Full support for Next.js 13+ App Router structure with nested layouts and route groups.",
     icon: "⚡",
@@ -14,8 +21,7 @@ const features = [
     title: "React Router",
     description: "Visualize React Router configurations including nested routes and dynamic segments.",
     icon: "🔄",
-    type: "neon" as const,
-    gradient: true,
+    type: "magic" as const,
   },
   {
     title: "Next.js Pages",
@@ -30,15 +36,9 @@ const features = [
     type: "magic" as const,
   },
   {
-    title: "Mermaid Diagrams",
-    description: "Beautiful, interactive flow charts generated automatically from your routing structure.",
+    title: "Interactive Diagrams",
+    description: "Beautiful, unified React Flow visualizations with drag, zoom, and pan controls for both code and website analysis.",
     icon: "📊",
-    type: "magic" as const,
-  },
-  {
-    title: "Real-time Analysis",
-    description: "Fast repository scanning with smart caching for instant results on repeat visits.",
-    icon: "⚡",
     type: "magic" as const,
   },
 ];
@@ -46,10 +46,11 @@ const features = [
 const techBadges = [
   { name: "Next.js", icon: "⚡" },
   { name: "React", icon: "⚛️" },
-  { name: "Mermaid.js", icon: "📊" },
+  { name: "React Flow", icon: "🌊" },
   { name: "GitHub API", icon: "🐙" },
   { name: "TypeScript", icon: "🔷" },
   { name: "Tailwind CSS", icon: "🎨" },
+  { name: "Supabase", icon: "💾" },
 ];
 
 export default function FeatureCards() {
@@ -80,9 +81,9 @@ export default function FeatureCards() {
                       </p>
                     </div>
                   </div>
-                  {feature.title === "React Router" && (
-                    <div className="mt-4 inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-pink-500 to-purple-600 text-white">
-                      POPULAR
+                  {feature.title === "Website Flow Analysis" && (
+                    <div className="mt-4 inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-green-500 to-teal-600 text-white">
+                      NEW
                     </div>
                   )}
                 </div>
