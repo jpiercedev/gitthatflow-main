@@ -68,13 +68,13 @@ export default function MermaidFlowChart({
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden">
+    <div className="bg-card border border-gray-700 rounded-lg overflow-hidden">
       {/* Header */}
-      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 px-6 py-4 border-b border-gray-200">
+      <div className="bg-gradient-to-r from-blue-900/20 to-purple-900/20 px-6 py-4 border-b border-gray-700">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-lg font-semibold text-gray-900">Route Flow Diagram</h3>
-            <div className="flex items-center space-x-4 mt-1 text-sm text-gray-600">
+            <h3 className="text-lg font-semibold text-foreground">Route Flow Diagram</h3>
+            <div className="flex items-center space-x-4 mt-1 text-sm text-muted-foreground">
               <span className="flex items-center">
                 <span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
                 Framework: {getFrameworkDisplayName(framework)}
@@ -208,7 +208,7 @@ export default function MermaidFlowChart({
             theme: config.theme,
             fontFamily: 'Inter, system-ui, sans-serif'
           }}
-          className="min-h-[400px] border border-gray-200 rounded-lg bg-white"
+          className="min-h-[400px] border border-gray-700 rounded-lg bg-background"
           onError={(error) => {
             console.error('Mermaid rendering failed:', error)
           }}
@@ -216,8 +216,8 @@ export default function MermaidFlowChart({
       </div>
 
       {/* Footer Info */}
-      <div className="bg-gray-50 px-6 py-3 border-t border-gray-200">
-        <p className="text-xs text-gray-500 text-center">
+      <div className="bg-muted/20 px-6 py-3 border-t border-gray-700">
+        <p className="text-xs text-muted-foreground text-center">
           Powered by Mermaid.js • Interactive diagrams for modern web applications
         </p>
       </div>

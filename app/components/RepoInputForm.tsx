@@ -34,14 +34,10 @@ export default function RepoInputForm({ onSubmit, isLoading }: RepoInputFormProp
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6">
-      <h2 className="text-xl font-semibold text-gray-900 mb-4">
-        Analyze GitHub Repository
-      </h2>
-      
+    <div className="bg-card border border-border rounded-lg p-6">
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="repo-url" className="block text-sm font-medium text-gray-700 mb-2">
+          <label htmlFor="repo-url" className="block text-sm font-medium text-foreground mb-2">
             GitHub Repository URL
           </label>
           <input
@@ -49,19 +45,19 @@ export default function RepoInputForm({ onSubmit, isLoading }: RepoInputFormProp
             id="repo-url"
             value={repoUrl}
             onChange={(e) => setRepoUrl(e.target.value)}
-            placeholder="https://github.com/username/repository"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="https://github.com/vercel/next.js"
+            className="w-full px-3 py-2 bg-input border border-gray-700 rounded-md text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
             disabled={isLoading}
           />
           {error && (
-            <p className="mt-1 text-sm text-red-600">{error}</p>
+            <p className="mt-1 text-sm text-red-400">{error}</p>
           )}
         </div>
 
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-3 px-4 rounded-md font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-background disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
         >
           {isLoading ? (
             <span className="flex items-center justify-center">
@@ -77,8 +73,8 @@ export default function RepoInputForm({ onSubmit, isLoading }: RepoInputFormProp
         </button>
       </form>
 
-      <div className="mt-4 text-sm text-gray-600">
-        <p className="font-medium mb-2">Supported frameworks:</p>
+      <div className="mt-4 text-sm text-muted-foreground">
+        <p className="font-medium mb-2 text-foreground">Supported frameworks:</p>
         <ul className="list-disc list-inside space-y-1">
           <li>React Router (React apps)</li>
           <li>Next.js (pages directory)</li>
