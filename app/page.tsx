@@ -98,8 +98,8 @@ export default function Home() {
         const errorData = await response.json()
         const error = new Error(errorData.error || 'Failed to analyze repository')
         // Attach additional error data for better handling
-        ;(error as any).suggestion = errorData.suggestion
-        ;(error as any).status = response.status
+        ;(error as Error & { suggestion?: string; status?: number }).suggestion = errorData.suggestion
+        ;(error as Error & { suggestion?: string; status?: number }).status = response.status
         throw error
       }
 
@@ -141,7 +141,7 @@ export default function Home() {
           suggestion = 'Try a smaller repository or one with fewer files'
         } else {
           errorMessage = error.message || errorMessage
-          suggestion = (error as any).suggestion || ''
+          suggestion = (error as Error & { suggestion?: string }).suggestion || ''
         }
       }
 

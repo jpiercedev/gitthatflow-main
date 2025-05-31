@@ -72,7 +72,7 @@ export async function POST(request: NextRequest) {
 
     // Return more specific error messages
     const errorMessage = (error as Error).message
-    const errorStatus = (error as any).status
+    const errorStatus = (error as { status?: number }).status
 
     if (errorMessage?.includes('not found') || errorMessage?.includes('not accessible')) {
       return NextResponse.json(

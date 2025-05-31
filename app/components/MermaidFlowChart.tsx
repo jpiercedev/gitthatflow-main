@@ -123,7 +123,7 @@ export default function MermaidFlowChart({
             <label className="text-sm font-medium text-gray-700">Type:</label>
             <select
               value={config.diagramType}
-              onChange={(e) => setConfig(prev => ({ ...prev, diagramType: e.target.value as any }))}
+              onChange={(e) => setConfig(prev => ({ ...prev, diagramType: e.target.value as 'flowchart' | 'graph' | 'mindmap' }))}
               className="text-sm border border-gray-300 rounded px-2 py-1"
             >
               <option value="flowchart">Flowchart</option>
@@ -136,7 +136,7 @@ export default function MermaidFlowChart({
             <label className="text-sm font-medium text-gray-700">Direction:</label>
             <select
               value={config.direction}
-              onChange={(e) => setConfig(prev => ({ ...prev, direction: e.target.value as any }))}
+              onChange={(e) => setConfig(prev => ({ ...prev, direction: e.target.value as 'TD' | 'LR' | 'RL' | 'BT' }))}
               className="text-sm border border-gray-300 rounded px-2 py-1"
             >
               <option value="TD">Top Down</option>
@@ -150,7 +150,7 @@ export default function MermaidFlowChart({
             <label className="text-sm font-medium text-gray-700">Theme:</label>
             <select
               value={config.theme}
-              onChange={(e) => setConfig(prev => ({ ...prev, theme: e.target.value as any }))}
+              onChange={(e) => setConfig(prev => ({ ...prev, theme: e.target.value as 'default' | 'dark' | 'forest' | 'neutral' }))}
               className="text-sm border border-gray-300 rounded px-2 py-1"
             >
               <option value="default">Default</option>
@@ -164,7 +164,7 @@ export default function MermaidFlowChart({
             <label className="text-sm font-medium text-gray-700">Shape:</label>
             <select
               value={config.nodeShape}
-              onChange={(e) => setConfig(prev => ({ ...prev, nodeShape: e.target.value as any }))}
+              onChange={(e) => setConfig(prev => ({ ...prev, nodeShape: e.target.value as 'rect' | 'round' | 'circle' | 'rhombus' }))}
               className="text-sm border border-gray-300 rounded px-2 py-1"
             >
               <option value="rect">Rectangle</option>

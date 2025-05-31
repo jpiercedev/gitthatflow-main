@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import React from "react";
 
-interface NeonGradientCardProps {
+interface NeonGradientCardProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * @default <div />
    */
@@ -31,7 +31,6 @@ interface NeonGradientCardProps {
     firstColor: string;
     secondColor: string;
   };
-  [key: string]: any;
 }
 
 const NeonGradientCard: React.FC<NeonGradientCardProps> = ({

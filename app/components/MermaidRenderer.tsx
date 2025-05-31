@@ -5,7 +5,7 @@ import mermaid from 'mermaid'
 
 interface MermaidRendererProps {
   chart: string
-  config?: any
+  config?: Record<string, unknown>
   className?: string
   onError?: (error: Error) => void
 }

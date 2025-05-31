@@ -38,7 +38,7 @@ export class RouteAnalyzer {
     const startTime = Date.now()
 
     const files = await Promise.race([
-      this.githubService.getRepoContents(repoInfo.owner, repoInfo.repo, '', branch),
+      this.githubService.getRepoContents(repoInfo.owner, repoInfo.repo, branch),
       new Promise<never>((_, reject) =>
         setTimeout(() => reject(new Error('Repository analysis timed out after 90 seconds')), 90000)
       )

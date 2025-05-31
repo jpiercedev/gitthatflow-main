@@ -77,9 +77,9 @@ export class GitHubService {
         console.log(`GitHub API requests remaining: ${this.rateLimitInfo.remaining}`)
       }
       return result
-    } catch (error: any) {
+    } catch (error: unknown) {
       // Handle rate limit errors
-      if (error.status === 403 && error.message?.includes('rate limit')) {
+      if ((error as { status?: number; message?: string }).status === 403 && (error as { message?: string }).message?.includes('rate limit')) {
         console.log('Rate limit hit, checking status and retrying...')
         await this.checkRateLimit()
         await this.waitForRateLimit()
@@ -133,7 +133,7 @@ export class GitHubService {
       try {
         const pathFiles = await this.getDirectoryContents(owner, repo, targetPath, branch, 3) // Max 3 levels deep
         files.push(...pathFiles)
-      } catch (error) {
+      } catch {
         // Path doesn't exist, continue to next
         console.log(`Path ${targetPath} not found, skipping...`)
       }
@@ -276,7 +276,6 @@ export class GitHubService {
   async getRepoContents(
     owner: string,
     repo: string,
-    path: string = '',
     branch: string = 'main'
   ): Promise<GitHubFile[]> {
     // Try search API first (much more efficient)

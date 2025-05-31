@@ -189,7 +189,7 @@ export const getNodeStyles = (isEntryPoint?: boolean) => ({
 })
 
 // Layout algorithms for better positioning
-export function applyAutoLayout(nodes: FlowNode[], _edges: FlowEdge[]): FlowNode[] {
+export function applyAutoLayout(nodes: FlowNode[]): FlowNode[] {
   // Simple hierarchical layout based on depth
   const nodesByDepth = nodes.reduce((acc, node) => {
     const depth = node.data.depth

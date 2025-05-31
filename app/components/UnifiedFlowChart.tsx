@@ -11,14 +11,15 @@ import {
   addEdge,
   Connection,
   Node,
-  Panel
+  Panel,
+  Position
 } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
 import { RouteData, WebsiteFlowData } from '@/lib/supabase'
 import { convertWebsiteToFlow, FlowNode, FlowEdge, applyAutoLayout } from '@/lib/flow-converter'
 
 // Convert GitHub route data to React Flow format
-function convertRoutesToFlow(routeData: RouteData[], framework?: string): { nodes: FlowNode[], edges: FlowEdge[] } {
+function convertRoutesToFlow(routeData: RouteData[]): { nodes: FlowNode[], edges: FlowEdge[] } {
   const nodes: FlowNode[] = []
   const edges: FlowEdge[] = []
   const nodeMap = new Map<string, string>()
@@ -50,8 +51,8 @@ function convertRoutesToFlow(routeData: RouteData[], framework?: string): { node
         isEntryPoint: route.path === '/',
         depth
       },
-      sourcePosition: 'bottom' as const,
-      targetPosition: 'top' as const
+      sourcePosition: Position.Bottom,
+      targetPosition: Position.Top
     }
 
     nodes.push(node)
@@ -90,8 +91,8 @@ function convertRoutesToFlow(routeData: RouteData[], framework?: string): { node
             isEntryPoint: false,
             depth: depth + 1
           },
-          sourcePosition: 'bottom' as const,
-          targetPosition: 'top' as const
+          sourcePosition: Position.Bottom,
+          targetPosition: Position.Top
         }
 
         nodes.push(childNode)
@@ -107,7 +108,7 @@ function convertRoutesToFlow(routeData: RouteData[], framework?: string): { node
     }
   })
 
-  return { nodes: applyAutoLayout(nodes, edges), edges }
+  return { nodes: applyAutoLayout(nodes), edges }
 }
 
 interface UnifiedFlowChartProps {
@@ -116,10 +117,10 @@ interface UnifiedFlowChartProps {
   framework?: string
   totalFiles?: number
   routeFiles?: number
-  
+
   // Website flow data
-  websiteData?: WebsiteFlowData
-  
+  websiteData?: WebsiteFlowData | null
+
   // Chart type
   type: 'github' | 'website'
 }
@@ -180,7 +181,7 @@ export default function UnifiedFlowChart({
   websiteData,
   type 
 }: UnifiedFlowChartProps) {
-  const [fitViewOnChange, setFitViewOnChange] = useState(true)
+  const [fitViewOnChange] = useState(true)
 
   // Convert data to React Flow format based on type
   const { initialNodes, initialEdges } = useMemo(() => {
@@ -191,10 +192,14 @@ export default function UnifiedFlowChart({
         initialEdges: edges
       }
     } else if (type === 'github' && routeData.length > 0) {
-      return convertRoutesToFlow(routeData, framework)
+      const { nodes, edges } = convertRoutesToFlow(routeData)
+      return {
+        initialNodes: nodes,
+        initialEdges: edges
+      }
     }
     return { initialNodes: [], initialEdges: [] }
-  }, [type, routeData, framework, websiteData])
+  }, [type, routeData, websiteData])
 
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges)
@@ -227,15 +232,15 @@ export default function UnifiedFlowChart({
   const resetLayout = useCallback(() => {
     if (type === 'website' && websiteData) {
       const { nodes: resetNodes, edges: resetEdges } = convertWebsiteToFlow(websiteData)
-      const layoutNodes = applyAutoLayout(resetNodes, resetEdges)
+      const layoutNodes = applyAutoLayout(resetNodes)
       setNodes(layoutNodes.map(node => ({ ...node, type: 'websiteNode' })))
       setEdges(resetEdges)
     } else if (type === 'github' && routeData.length > 0) {
-      const { nodes: resetNodes, edges: resetEdges } = convertRoutesToFlow(routeData, framework)
+      const { nodes: resetNodes, edges: resetEdges } = convertRoutesToFlow(routeData)
       setNodes(resetNodes)
       setEdges(resetEdges)
     }
-  }, [type, websiteData, routeData, framework, setNodes, setEdges])
+  }, [type, websiteData, routeData, setNodes, setEdges])
 
   if (initialNodes.length === 0) {
     return (

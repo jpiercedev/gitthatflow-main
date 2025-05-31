@@ -123,7 +123,7 @@ export class WebsiteCrawler {
     }
   }
 
-  private extractLinks($: cheerio.CheerioAPI, currentUrl: string): string[] {
+  private extractLinks($: cheerio.Root, currentUrl: string): string[] {
     const links: string[] = []
     const seenLinks = new Set<string>()
 
