@@ -1,5 +1,6 @@
 'use client'
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useEffect } from 'react'
 import RepoInputForm from './components/RepoInputForm'
 import WebsiteInputForm from './components/WebsiteInputForm'

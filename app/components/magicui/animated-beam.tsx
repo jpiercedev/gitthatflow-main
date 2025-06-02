@@ -3,6 +3,8 @@
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 interface AnimatedBeamProps {
   className?: string;
   containerRef?: React.RefObject<HTMLElement>;

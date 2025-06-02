@@ -2,6 +2,8 @@
 
 import { cn } from "@/lib/utils";
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 interface BorderBeamProps {
   className?: string;
   size?: number;

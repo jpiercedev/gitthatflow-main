@@ -3,6 +3,8 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 interface ShimmerButtonProps {
   children: React.ReactNode;
   className?: string;

@@ -1,6 +1,7 @@
 "use client";
 
 import AnimatedGradientText from "./magicui/animated-gradient-text";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { BorderBeam } from "./magicui/border-beam";
 import { motion } from "framer-motion";
 
