@@ -71,13 +71,18 @@ export class WebsiteCrawler {
         await this.delay(this.options.delay)
       }
 
-      // Fetch the page
+      // Fetch the page with timeout
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), this.options.timeout)
+
       const response = await fetch(url, {
         headers: {
           'User-Agent': this.options.userAgent,
         },
-        signal: AbortSignal.timeout(this.options.timeout)
+        signal: controller.signal
       })
+
+      clearTimeout(timeoutId)
 
       if (!response.ok) {
         console.warn(`Failed to fetch ${url}: ${response.status}`)
