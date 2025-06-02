@@ -12,6 +12,7 @@ GitThatFlow is a powerful tool that analyzes GitHub repositories and visualizes 
 - 🌐 **Website Crawling**: Automatically discovers navigation paths and user journeys on any website
 - 🚀 **Smart Limits**: Analyzes up to 30 pages with configurable depth for optimal performance
 - 🤖 **Respectful Crawling**: Honors robots.txt and implements rate limiting
+- 📸 **Screenshot Capture**: Take high-quality screenshots of analyzed websites in desktop and mobile viewports
 
 ### Unified Visualization
 - 🎯 **Interactive React Flow**: Beautiful, draggable flow diagrams with zoom and pan controls for both analysis types
@@ -50,7 +51,12 @@ cd gitthatflow
 npm install
 ```
 
-3. Set up environment variables:
+3. Install Playwright browsers (for screenshot functionality):
+```bash
+npx playwright install chromium
+```
+
+4. Set up environment variables:
 ```bash
 cp .env.example .env.local
 ```
@@ -65,7 +71,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 GITHUB_TOKEN=your_github_personal_access_token
 ```
 
-4. Set up Supabase database:
+5. Set up Supabase database:
 
 The application requires database tables for both GitHub repository analysis and website flow analysis. Run the SQL from `database-setup.sql` in your Supabase SQL editor, or copy this:
 
@@ -91,7 +97,9 @@ CREATE INDEX idx_projects_repo_url ON projects(repo_url);
 CREATE INDEX idx_website_projects_url ON website_projects(website_url);
 ```
 
-5. Run the development server:
+   **Note**: Screenshots are handled in-memory and downloaded directly - no additional storage setup required!
+
+6. Run the development server:
 ```bash
 npm run dev
 ```
@@ -100,10 +108,19 @@ Open [http://localhost:3000](http://localhost:3000) to see the application.
 
 ## Usage
 
+### GitHub Repository Analysis
 1. **Enter a GitHub Repository URL**: Paste any public GitHub repository URL that uses supported routing frameworks
 2. **Analyze**: Click "Analyze Repository" to start the parsing process
 3. **Visualize**: View the interactive flow chart showing your application's routing structure
 4. **Explore**: Use the flow chart controls to zoom, pan, and explore the route relationships
+
+### Website Flow Analysis
+1. **Switch to Website Mode**: Click the "Website Flow" toggle at the top
+2. **Enter a Website URL**: Paste any website URL you want to analyze
+3. **Configure Options**: Set max pages (up to 30) and crawl depth (up to 5)
+4. **Analyze**: Click "Analyze Website" to start crawling and mapping the site
+5. **Visualize**: View the interactive flow chart showing the website's navigation structure
+6. **Capture Screenshots**: Click the "Website Screenshots" panel to take high-quality screenshots of the analyzed pages in both desktop and mobile viewports
 
 ### Example Repositories to Try
 
@@ -136,8 +153,9 @@ Open [http://localhost:3000](http://localhost:3000) to see the application.
 
 - **Frontend**: Next.js 15 with React 19, Tailwind CSS, React Flow for unified visualization
 - **Backend**: Next.js API routes with GitHub API integration and web crawling
-- **Database**: Supabase (PostgreSQL) for caching analysis results
+- **Database**: Supabase (PostgreSQL) for caching analysis results and screenshot metadata
 - **Analysis**: Babel AST parser for code analysis, Cheerio for website crawling
+- **Screenshots**: Playwright for automated browser screenshots with direct download (no storage required)
 - **Visualization**: React Flow for interactive, draggable flow diagrams
 
 ## Contributing

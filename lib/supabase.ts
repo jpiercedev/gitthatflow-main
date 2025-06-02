@@ -57,3 +57,24 @@ export interface WebsiteProject {
   flow_data: WebsiteFlowData | null
   created_at: string
 }
+
+// Website Screenshots Types
+export interface WebsiteScreenshot {
+  id: string
+  filename: string
+  viewport: string
+  url: string
+  title: string
+  base64Data?: string
+  downloadUrl?: string
+}
+
+export interface WebsiteScreenshotSession {
+  id: string
+  session_id: string
+  website_url: string
+  screenshots_data: WebsiteScreenshot[]
+  capture_time: number
+  total_screenshots: number
+  created_at: string
+}

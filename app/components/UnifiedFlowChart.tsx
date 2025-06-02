@@ -17,6 +17,7 @@ import {
 import '@xyflow/react/dist/style.css'
 import { RouteData, WebsiteFlowData } from '@/lib/supabase'
 import { convertWebsiteToFlow, FlowNode, FlowEdge, applyAutoLayout } from '@/lib/flow-converter'
+import ScreenshotPanel from './ScreenshotPanel'
 
 // Convert GitHub route data to React Flow format
 function convertRoutesToFlow(routeData: RouteData[]): { nodes: FlowNode[], edges: FlowEdge[] } {
@@ -173,15 +174,16 @@ const nodeTypes = {
   websiteNode: WebsiteNode,
 }
 
-export default function UnifiedFlowChart({ 
-  routeData = [], 
-  framework, 
-  totalFiles, 
+export default function UnifiedFlowChart({
+  routeData = [],
+  framework,
+  totalFiles,
   routeFiles,
   websiteData,
-  type 
+  type
 }: UnifiedFlowChartProps) {
   const [fitViewOnChange] = useState(true)
+  const [showScreenshotPanel, setShowScreenshotPanel] = useState(false)
 
   // Convert data to React Flow format based on type
   const { initialNodes, initialEdges } = useMemo(() => {
@@ -371,6 +373,17 @@ export default function UnifiedFlowChart({
           {type === 'website' && websiteData && ` • Crawl time: ${(websiteData.metadata.crawlTime / 1000).toFixed(1)}s`}
         </p>
       </div>
+
+      {/* Screenshot Panel - Only for website analysis */}
+      {type === 'website' && websiteData && (
+        <div className="mt-6">
+          <ScreenshotPanel
+            websiteUrl={websiteData.metadata.baseUrl}
+            isVisible={showScreenshotPanel}
+            onToggle={() => setShowScreenshotPanel(!showScreenshotPanel)}
+          />
+        </div>
+      )}
     </div>
   )
 }
